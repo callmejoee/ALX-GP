@@ -5,14 +5,15 @@ from django.http import JsonResponse
 # Create your views here.
 
 
-class RegistrationView(View):
+class UsernameValidationView(View):
     def post(self, request):
         data=json.loads(request.body)
         username=data['username']
 
         if not str(username).isalnum():
-            return JsonResponse({'username_error' : 'username should only contain alphanumeric characters'})
+            return JsonResponse({'username_error' : 'username should only contain alphanumeric characters'}, status=400)
+        return JsonResponse({'username_valid': True})
 
-class UsernameValidationView(View):
+class RegistrationView(View):
     def get(self, request):
         return render(request, 'authentication/register.html')
