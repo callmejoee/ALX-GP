@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import django_heroku
-
+from django.contrib import messages
 load_dotenv()
 
 
@@ -135,3 +135,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 django_heroku.settings(locals())
+
+
+MESSAGE_TAGS = {
+    messages.ERROR: "danger"
+}
