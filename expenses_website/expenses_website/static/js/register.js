@@ -2,6 +2,8 @@ const usernameField = document.querySelector('#usernameField');
 const emailField = document.querySelector('#emailField');
 const usernameFeedbackField = document.querySelector('.username-invalid-feedback');
 const emailFeedbackField = document.querySelector('.email-invalid-feedback');
+const passwordField = document.querySelector('#passwordField');
+const togglePassword = document.querySelector('#togglePassword');
 
 function debounce(func, delay) {
     let timeoutId;
@@ -81,4 +83,12 @@ emailField.addEventListener("keyup", (e) => {
     } else {
         emailFeedbackField.style.display = 'none';
     }
+});
+
+
+togglePassword.addEventListener('click', function () {
+    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordField.setAttribute('type', type);
+
+    this.textContent = type === 'password' ? 'Show' : 'Hide';
 });
