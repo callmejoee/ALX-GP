@@ -4,6 +4,7 @@ const usernameFeedbackField = document.querySelector('.username-invalid-feedback
 const emailFeedbackField = document.querySelector('.email-invalid-feedback');
 const passwordField = document.querySelector('#passwordField');
 const togglePassword = document.querySelector('#togglePassword');
+const submitButton = document.querySelector('.submit-btn')
 
 function debounce(func, delay) {
     let timeoutId;
@@ -32,9 +33,14 @@ const validateUsername = debounce((usernameValue) => {
             usernameField.classList.add("is-invalid");
             usernameFeedbackField.innerHTML = `<p>${data.username_error}</p>`;
             usernameFeedbackField.style.display = 'block';
+            submitButton.disabled = true;
+
+
         } else {
             usernameField.classList.remove("is-invalid");
             usernameFeedbackField.style.display = 'none';
+            submitButton.disabled = false;
+
         }
     })
     .catch(error => {
@@ -57,9 +63,14 @@ const validateEmail = debounce((emailValue) => {
             emailField.classList.add("is-invalid");
             emailFeedbackField.innerHTML = `<p>${data.email_error}</p>`;
             emailFeedbackField.style.display = 'block';
+            submitButton.disabled = true;
+
+
         } else {
             emailField.classList.remove("is-invalid");
             emailFeedbackField.style.display = 'none';
+            submitButton.disabled = false;
+
         }
     })
     .catch(error => {
