@@ -1,35 +1,40 @@
 {% extends "base_auth.html" %}
 {% load static %}
 
-
 {% block content %}
+{% include 'partials/navbar.html' %}
+
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card mt-5">
+        <div class="card mt-5 shadow-lg border-0">
             <div class="card-body">
                 <div class="card-title text-center py-3">
-                    <h4>Register Account</h4>
+                    <h4 class="font-weight-bold text-primary">Register Account</h4>
                 </div>
                 <form action="{% url 'register' %}" method="post">
                     {% csrf_token %}
                     {% include 'partials/messages.html' %}
                     <div class="form-group py-2">
-                        <label for="emailField">Email</label>
-                        <input type="email" name="email" id="emailField" value="{{fieldValues.email}}" placeholder="Email" class="form-control form-control-sm" required>
+                        <label for="emailField" class="form-label">Email</label>
+                        <input type="email" name="email" id="emailField" value="{{ fieldValues.email }}"
+                               placeholder="Enter your email" class="form-control form-control-sm" required>
+                        <div class="email-invalid-feedback text-danger small" style="display:none"></div>
                     </div>
-                    <div class="email-invalid-feedback" style="display:none"></div>
                     <div class="form-group py-2">
-                        <label for="usernameField">Username</label>
-                        <input type="text" name="username" id="usernameField" value="{{fieldValues.username}}" placeholder="Username" class="form-control form-control-sm" required>
+                        <label for="usernameField" class="form-label">Username</label>
+                        <input type="text" name="username" id="usernameField" value="{{ fieldValues.username }}"
+                               placeholder="Choose a username" class="form-control form-control-sm" required>
+                        <div class="username-invalid-feedback text-danger small" style="display:none"></div>
                     </div>
-                    <div class="username-invalid-feedback" style="display:none"></div>
-                    <div class="form-group py-2 position-relative">
+                  <div class="form-group py-2 position-relative">
                         <label for="passwordField">Password</label>
                         <input type="password" name="password" id="passwordField" placeholder="Password" class="form-control form-control-sm" required>
                         <small id="togglePassword" class="position-absolute" style="top: 50%; right: 10px; cursor:pointer;">Show</small>
                     </div>
-                    <div class="form-group text-center py-2">
-                        <button type="submit" class="btn btn-lg btn-primary px-5 submit-btn">Register</button>
+                    <div class="form-group text-center py-3">
+                        <button type="submit" class="btn btn-lg btn-primary px-5 submit-btn">
+                            Register
+                        </button>
                     </div>
                 </form>
             </div>
