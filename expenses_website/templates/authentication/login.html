@@ -1,10 +1,39 @@
 {% extends "base_auth.html" %}
-
+{% load static %}
 
 {% block content %}
-<div class="card">
-    <div class="card-body">
-        <h1>Login</h1>
+{% include 'partials/navbar.html' %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mt-5 shadow-lg border-0">
+            <div class="card-body">
+                <div class="card-title text-center py-3">
+                    <h4 class="font-weight-bold text-primary">Login to your Account</h4>
+                </div>
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    {% include 'partials/messages.html' %}
+
+                    <div class="form-group py-2">
+                        <label for="usernameField" class="form-label">Username</label>
+                        <input type="text" name="username" id="usernameField" value="{{ fieldValues.username }}"
+                               placeholder="Enter your username" class="form-control form-control-sm" required>
+                    </div>
+                  <div class="form-group py-2 position-relative">
+                        <label for="passwordField">Password</label>
+                        <input type="password" name="password" id="passwordField" placeholder="Enter your password" class="form-control form-control-sm" required>
+                    </div>
+                    <div class="form-group text-center py-3">
+                        <button type="submit" class="btn btn-lg btn-primary px-5 submit-btn">
+                            Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+
+
 {% endblock %}
