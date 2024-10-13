@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 import json
 from django.http import JsonResponse
@@ -8,6 +8,13 @@ from django.contrib import messages
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
+from django.urls import reverse
+from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.sites.shortcuts import get_current_site
+from .utils import token_generator
+
+
 
 # Create your views here.
 
@@ -65,8 +72,13 @@ class RegistrationView(View):
                 user.is_active = False
                 user.save()
 
+                uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+                domain = get_current_site(request).domain
+                link = reverse('activate', kwargs={'uidb64': uidb64, 'token':token_generator.make_token(user)})
+                activate_url = "http://" + domain + link
+
                 email_subject = 'Budgetly - Activation Email'
-                email_body = '<strong> This is the activation code </strong>'
+                email_body = 'Hi ' + user.username + " Please use this link to verify your account \n" + activate_url
 
                 message = Mail(
                     from_email=os.environ.get('HOST_EMAIL'),
@@ -88,3 +100,6 @@ class RegistrationView(View):
         return render(request, 'authentication/register.html')
 
 
+class VerificationView(View):
+    def get(self, request, uidb64, token):
+        return redirect('login')
