@@ -7,4 +7,17 @@
     </div>
     {% endfor %}
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            const messagesDiv = document.querySelector('.messages');
+            if (messagesDiv) {
+                messagesDiv.style.transition = 'opacity 0.5s ease';
+                messagesDiv.style.opacity = '0';
+                setTimeout(() => messagesDiv.remove(), 500);
+            }
+        }, 5000);
+    });
+</script>
 {% endif %}
