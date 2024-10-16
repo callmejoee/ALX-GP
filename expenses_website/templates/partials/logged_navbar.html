@@ -8,9 +8,10 @@
 
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="/home">Sign Out</a>
-                </li>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <input class="nav-link text-white" type="submit" value="Sign Out">
+                </form>
             </ul>
         </div>
     </div>
