@@ -151,3 +151,11 @@ class LoginView(View):
         elif not username or not password:
             messages.error(request, "Please enter username and password")
             return render(request, 'authentication/login.html')
+
+
+
+class LogoutView(View):
+    def post(self, request):
+        auth.logout(request)
+        messages.success(request, "Logged out successfully")
+        return redirect('home')
