@@ -10,5 +10,7 @@ urlpatterns = [
     path('prices', views.prices, name="prices"),
     path('features', views.features, name="features"),
     path('expense-delete/<int:id>', views.delete_expense, name="expense-delete"),
+    path('stats', views.statsView, name="stats"),
+    path('expense_category_sumarry', views.expense_category_sumarry, name="expense_category_sumarry")
 
 ]
