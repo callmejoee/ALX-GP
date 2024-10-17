@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    {% include 'partials/messages.html' %}
+
+    <h1>Incomes List</h1>
+    <div class="row">
+        <div class="col-md-10">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="">Income</a></li>
+            <li class="breadcrumb-item active" aria-current="page">My Income</li>
+          </ol>
+        </nav>
+        </div>
+        <div class="col-md-2">
+            <a href="{% url 'add-income' %}" class="btn btn-primary"> Add Income</a>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+     {% if income.count %}
+         <table class="table table-stripped table-hover">
+             <thead>
+             <tr>
+                 <th>Amount ({{ currency }})</th>
+                 <th>Source</th>
+                 <th>Description</th>
+                 <th>Date</th>
+             </tr>
+             </thead>
+             <tbody>
+             {% for income in page_obj %}
+                <tr>
+                    <td>{{income.amount}}</td>
+                    <td>{{income.source}}</td>
+                    <td>{{income.description}}</td>
+                    <td>{{income.date}}</td>
+                    <td> <a href="{% url 'income_edit' income.id %}" class="btn btn-secondary btn-sm">Edit</a></td>
+                </tr>
+             {% endfor %}
+             </tbody>
+         </table>
+    <div class="row">
+    <div class="col-md-6 d-flex justify-content-start">
+        Showing Page: {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </div>
+    <div class="col-md-6 d-flex justify-content-end">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-primary">Previous</a>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary">Next</a>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+    {% endif %}
+</div>
+
+
+
+{% endblock %}
