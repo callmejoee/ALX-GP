@@ -1,12 +1,18 @@
+let currentChartType = "doughnut";
+let myChart;
+
 const renderChart = (data, labels) => {
-  var ctx = document.getElementById("myChart").getContext("2d");
-  var myChart = new Chart(ctx, {
-    type: "doughnut",
+  const ctx = document.getElementById("myChart").getContext("2d");
+  if (myChart) {
+    myChart.destroy();
+  }
+  myChart = new Chart(ctx, {
+    type: currentChartType,
     data: {
       labels: labels,
       datasets: [
         {
-          label: "Last 6 months expenses",
+          label: "Last month's expenses",
           data: data,
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
@@ -29,6 +35,8 @@ const renderChart = (data, labels) => {
       ],
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
       title: {
         display: true,
         text: "Expenses per category",
@@ -50,7 +58,23 @@ const getChartData = () => {
       ];
 
       renderChart(data, labels);
-    });
+    })
+    .catch((error) => console.error("Error fetching data:", error));
 };
 
-document.onload = getChartData();
+const toggleChartType = () => {
+  const chartTypes = ["doughnut", "bar", "line", "pie"];
+  let currentIndex = chartTypes.indexOf(currentChartType);
+  currentIndex = (currentIndex + 1) % chartTypes.length;
+  currentChartType = chartTypes[currentIndex];
+  getChartData();
+};
+
+document.addEventListener("keydown", (event) => {
+  if (event.code === "Space") {
+    event.preventDefault();
+    toggleChartType();
+  }
+});
+
+document.addEventListener("DOMContentLoaded", getChartData);
