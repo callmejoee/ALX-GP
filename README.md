@@ -14,8 +14,8 @@ Budgetly is a full-stack web application designed to help users track their expe
 
 - **Backend**: Django
 - **Frontend**: Bootstrap, Chart.js
-- **Database**: SQLite (or any other database you choose to use)
-- **Additional Libraries**: Pandas (for CSV handling), Django REST Framework (if using APIs)
+- **Database**: SQLite
+- **Additional Libraries**: Pandas (for CSV handling)
 
 ## Installation
 
